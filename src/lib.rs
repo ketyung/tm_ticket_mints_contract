@@ -1,5 +1,6 @@
 pub mod models;
 pub mod sales_view;
+mod tests;
 
 use near_sdk::{near_bindgen, env, AccountId,BorshStorageKey };
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};

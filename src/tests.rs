@@ -24,17 +24,31 @@ mod tests {
         let acc_id0 = accounts(0);
 
         _contract.insert_ticket_sale(CollectionId {
-
             owner : acc_id0.clone(),
             title : "TC 01 Collection".to_string(),
             symbol : "TC1".to_string(),
         }, "088811".to_string(), accounts(1));
 
+
+        _contract.insert_ticket_sale(CollectionId {
+            owner : acc_id0.clone(),
+            title : "TC 01 Collection".to_string(),
+            symbol : "TC1".to_string(),
+        }, "088811".to_string(), accounts(1));
+
+
+        _contract.insert_ticket_sale(CollectionId {
+            owner : acc_id0.clone(),
+            title : "TC 01 Collection".to_string(),
+            symbol : "TC1".to_string(),
+        }, "088812".to_string(), accounts(1));
+
+
         let sales = _contract.get_ticket_sales_by(acc_id0, None, None);
 
         for sale in sales {
 
-            print!("sales:{:?}", sale);
+            print!("\nsales:{:?}", sale);
         }
 
         testing_env!(context.is_view(true).build());

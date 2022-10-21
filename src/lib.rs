@@ -36,9 +36,7 @@ impl Default for Contract{
 impl Contract {
 
     #[init]
-    #[private] // for internal testing only
-    #[allow(dead_code)]
-    pub (crate) fn init() -> Self {
+    pub fn init() -> Self {
         assert!(!env::state_exists(), "Already initialized");
         
         Self{ ticket_sales :  UnorderedSet::new(StorageKey::SalesStorageKey)}

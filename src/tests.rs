@@ -34,14 +34,14 @@ mod tests {
             owner : acc_id0.clone(),
             title : "TC 01 Collection".to_string(),
             symbol : "TC1".to_string(),
-        }, "088811".to_string(), accounts(1));
+        }, "088812".to_string(), accounts(1));
 
 
         _contract.insert_ticket_sale(CollectionId {
             owner : acc_id0.clone(),
             title : "TC 01 Collection".to_string(),
             symbol : "TC1".to_string(),
-        }, "088812".to_string(), accounts(1));
+        }, "088811".to_string(), accounts(1));
 
 
         let sales = _contract.get_ticket_sales_by(acc_id0, None, None);

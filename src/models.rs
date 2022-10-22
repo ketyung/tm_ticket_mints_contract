@@ -18,7 +18,8 @@ pub struct TicketMint {
 
 impl TicketMint {
 
-    pub fn update_attribute(&mut self, new_attribute : TicketAttribute) {
+    pub fn update_attribute(&mut self, new_attribute : TicketAttribute,
+    insert_if_not_exists : bool) {
 
         if self.attributes.is_some () {
      
@@ -30,6 +31,14 @@ impl TicketMint {
 
                 uw_attrbs[index.unwrap()] = new_attribute;
                 self.attributes = Some(uw_attrbs);
+            }
+            else {
+
+                if insert_if_not_exists {
+
+                    uw_attrbs.push(new_attribute);
+                    self.attributes = Some(uw_attrbs);          
+                }
             }
         }
        
@@ -63,7 +72,9 @@ pub enum TicketAttributeType {
 
     IsUsed,
 
-    MintPrice,
+    DateUsed, 
+
+    Price,
 
 }
 

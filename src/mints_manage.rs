@@ -24,7 +24,7 @@ impl Contract {
             value : Some("false".to_string()),
         }, 
         TicketAttribute {
-            name : TicketAttributeType::MintPrice,
+            name : TicketAttributeType::Price,
             value : Some(format!("{}",price.unwrap_or(0)).to_string()),
         }];
 
@@ -67,7 +67,12 @@ impl Contract {
         uw_ticket_mint.update_attribute(TicketAttribute {
             name : TicketAttributeType::IsUsed,
             value : Some("true".to_string()),
-        });
+        }, true );
+
+        uw_ticket_mint.update_attribute(TicketAttribute {
+            name : TicketAttributeType::DateUsed,
+            value : Some(format!("{}", env::block_timestamp())),
+        }, true );
 
         self.ticket_mints.remove(&id);
         self.ticket_mints.insert(&id, &uw_ticket_mint);

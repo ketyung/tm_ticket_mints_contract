@@ -11,7 +11,7 @@ pub struct TicketMint {
 
     pub attributes : Option<Vec<TicketAttribute>>,
 
-    pub mint_by : AccountId,
+    pub mint_by : Option<AccountId>,
 
     pub date : Option<u64>,
 }
@@ -21,7 +21,6 @@ impl PartialEq for TicketMint {
     fn eq(&self, other: &Self) -> bool {
         self.collection_id == other.collection_id  
         && self.token_id == other.token_id 
-        && self.mint_by == other.mint_by 
     }
 }
 

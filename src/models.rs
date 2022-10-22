@@ -16,16 +16,17 @@ pub struct TicketMint {
     pub date : Option<u64>,
 }
 
-impl PartialEq for TicketMint {
 
-    fn eq(&self, other: &Self) -> bool {
-        self.collection_id == other.collection_id  
-        && self.token_id == other.token_id 
-    }
+#[derive(BorshDeserialize, BorshSerialize, PartialEq, Debug)]
+pub struct TicketMintId {
+
+    pub collection_id : CollectionId,
+
+    pub token_id : TokenId,
+
 }
 
-
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, PartialEq)]
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, PartialEq, Clone)]
 #[serde(crate = "near_sdk::serde")]
 pub struct CollectionId {
 

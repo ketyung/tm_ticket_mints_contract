@@ -7,8 +7,8 @@ use near_sdk::{near_bindgen, env, AccountId,BorshStorageKey };
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::serde::{Serialize, Deserialize};
 use near_contract_standards::non_fungible_token::TokenId;
-use near_sdk::collections::UnorderedSet;
-use models::{TicketMint, CollectionId,TicketAttribute};
+use near_sdk::collections::UnorderedMap;
+use models::{TicketMint, TicketMintId, CollectionId,TicketAttribute};
 
 
 #[derive(BorshSerialize, BorshStorageKey)]
@@ -22,7 +22,7 @@ pub enum StorageKey {
 #[derive(BorshDeserialize, BorshSerialize)]
 pub struct Contract {
     
-    ticket_mints: UnorderedSet<TicketMint>,  
+    ticket_mints: UnorderedMap<TicketMintId,TicketMint>,  
 }
 
 
@@ -30,7 +30,7 @@ pub struct Contract {
 impl Default for Contract{
 
     fn default() -> Self{
-        Self{ ticket_mints :  UnorderedSet::new(StorageKey::SalesStorageKey)}
+        Self{ ticket_mints :  UnorderedMap::new(StorageKey::SalesStorageKey)}
     }
 }
 
@@ -41,7 +41,7 @@ impl Contract {
     pub fn init() -> Self {
         assert!(!env::state_exists(), "Already initialized");
         
-        Self{ ticket_mints :  UnorderedSet::new(StorageKey::SalesStorageKey)}
+        Self{ ticket_mints :  UnorderedMap::new(StorageKey::SalesStorageKey)}
     }
 
 }

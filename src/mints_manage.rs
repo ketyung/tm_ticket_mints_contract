@@ -5,7 +5,7 @@ use crate::*;
 impl Contract {
 
     pub fn insert_ticket_mint(&mut self, collection_id : CollectionId, 
-        token_id : TokenId, mint_by : AccountId) -> bool{
+        token_id : TokenId, mint_by : AccountId, price : Option<u128>) -> bool{
 
         let id = TicketMintId {
             collection_id : collection_id.clone(),
@@ -20,12 +20,12 @@ impl Contract {
 
         let attributes = vec![
         TicketAttribute {
-            name : "is_used".to_string(),
+            name : TicketAttributeType::IsUsed,
             value : Some("false".to_string()),
         }, 
         TicketAttribute {
-            name : "date_minted".to_string(),
-            value : Some(format!("{}",env::block_timestamp()).to_string()),
+            name : TicketAttributeType::MintPrice,
+            value : Some(format!("{}",price.unwrap_or(0)).to_string()),
         }];
 
 
@@ -49,7 +49,7 @@ impl Contract {
 impl Contract {
 
     pub fn set_ticket_mint_is_used(&mut self, collection_id : CollectionId, 
-        token_id : TokenId){
+        token_id : TokenId) -> bool{
 
         let id = TicketMintId {
             collection_id : collection_id,
@@ -59,10 +59,19 @@ impl Contract {
         let ticket_mint = self.ticket_mints.get(&id);
 
         if ticket_mint.is_none() {
-
-            env::panic_str(format!("No such ticket mint {:?}", ticket_mint).as_str());
+            return false;
         }
 
 
+        let mut uw_ticket_mint = ticket_mint.unwrap();
+        uw_ticket_mint.update_attribute(TicketAttribute {
+            name : TicketAttributeType::IsUsed,
+            value : Some("true".to_string()),
+        });
+
+        self.ticket_mints.remove(&id);
+        self.ticket_mints.insert(&id, &uw_ticket_mint);
+
+        return true;
     }
 }

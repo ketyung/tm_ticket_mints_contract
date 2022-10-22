@@ -16,6 +16,26 @@ pub struct TicketMint {
     pub date : Option<u64>,
 }
 
+impl TicketMint {
+
+    pub fn update_attribute(&mut self, new_attribute : TicketAttribute) {
+
+        if self.attributes.is_some () {
+     
+            let mut uw_attrbs = self.attributes.clone().unwrap();
+
+            let index = uw_attrbs.iter().position(|a| *a == new_attribute);
+
+            if index.is_some() {
+
+                uw_attrbs[index.unwrap()] = new_attribute;
+                self.attributes = Some(uw_attrbs);
+            }
+        }
+       
+    }
+}
+
 
 #[derive(BorshDeserialize, BorshSerialize, PartialEq, Debug)]
 pub struct TicketMintId {
@@ -37,13 +57,29 @@ pub struct CollectionId {
     pub owner : AccountId, 
 }
 
+#[derive(BorshDeserialize, BorshSerialize,Debug, PartialEq,Serialize, Deserialize,Clone)]
+#[serde(crate = "near_sdk::serde")]
+pub enum TicketAttributeType {
 
+    IsUsed,
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, PartialEq)]
+    MintPrice,
+
+}
+
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, Clone)]
 #[serde(crate = "near_sdk::serde")]
 pub struct TicketAttribute {
 
-    pub name : String,
+    pub name : TicketAttributeType,
 
     pub value : Option<String>,
 }
+
+impl PartialEq for TicketAttribute {
+
+    fn eq(&self, other: &Self) -> bool {
+        self.name == other.name  
+    }
+}
+

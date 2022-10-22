@@ -3,18 +3,20 @@ use crate::*;
 
 #[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug)]
 #[serde(crate = "near_sdk::serde")]
-pub struct TicketSale {
+pub struct TicketMint {
 
     pub collection_id : CollectionId,
 
     pub token_id : TokenId,
+
+    pub attributes : Option<Vec<TicketAttribute>>,
 
     pub mint_by : AccountId,
 
     pub date : Option<u64>,
 }
 
-impl PartialEq for TicketSale {
+impl PartialEq for TicketMint {
 
     fn eq(&self, other: &Self) -> bool {
         self.collection_id == other.collection_id  
@@ -33,5 +35,15 @@ pub struct CollectionId {
     pub symbol : String, 
     
     pub owner : AccountId, 
+}
 
+
+
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, PartialEq)]
+#[serde(crate = "near_sdk::serde")]
+pub struct TicketAttribute {
+
+    pub name : String,
+
+    pub value : Option<String>,
 }

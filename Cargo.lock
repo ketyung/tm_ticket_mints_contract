@@ -1235,7 +1235,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "tm_ticket_sales_record"
+name = "tm_ticket_mints_contract"
 version = "0.1.0"
 dependencies = [
  "near-contract-standards",

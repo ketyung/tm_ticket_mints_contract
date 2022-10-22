@@ -76,6 +76,7 @@ pub enum TicketAttributeType {
 
     Price,
 
+    UsedBy, 
 }
 
 #[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, Clone)]

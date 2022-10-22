@@ -49,7 +49,7 @@ impl Contract {
 impl Contract {
 
     pub fn set_ticket_mint_is_used(&mut self, collection_id : CollectionId, 
-        token_id : TokenId) -> bool{
+        token_id : TokenId, used_by : AccountId) -> bool{
 
         let id = TicketMintId {
             collection_id : collection_id,
@@ -64,9 +64,15 @@ impl Contract {
 
 
         let mut uw_ticket_mint = ticket_mint.unwrap();
+     
         uw_ticket_mint.update_attribute(TicketAttribute {
             name : TicketAttributeType::IsUsed,
             value : Some("true".to_string()),
+        }, true );
+
+        uw_ticket_mint.update_attribute(TicketAttribute {
+            name : TicketAttributeType::UsedBy,
+            value : Some(used_by.as_str().to_string()),
         }, true );
 
         uw_ticket_mint.update_attribute(TicketAttribute {

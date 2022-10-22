@@ -44,6 +44,13 @@ mod tests {
         }, "088811".to_string(), accounts(1), None );
 
 
+        _contract.set_ticket_mint_is_used(CollectionId {
+            owner : acc_id0.clone(),
+            title : "TC 01 Collection".to_string(),
+            symbol : "TC1".to_string(),
+        }, "088812".to_string(), accounts(1));
+
+
         let sales = _contract.get_ticket_mints_by(acc_id0, None, None);
 
         for sale in sales {

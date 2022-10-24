@@ -61,8 +61,12 @@ impl Contract {
     pub fn init(allowed_callers : Vec<AccountId>) -> Self {
         assert!(!env::state_exists(), "Already initialized");
         
-        Self{ ticket_mints :  UnorderedMap::new(StorageKey::SalesStorageKey),
-        allowed_callers : Some(allowed_callers)}
+        let s = Self{ ticket_mints :  UnorderedMap::new(StorageKey::SalesStorageKey),
+        allowed_callers : Some(allowed_callers.clone())};
+
+        env::log_str(format!("Initialized with allowed callers {:?}", allowed_callers).as_str());
+        return s; 
+
     }
 
 }

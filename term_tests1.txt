@@ -3,3 +3,6 @@ near deploy --accountId test_tm_ticket_mints_contract.testnet --wasmFile target/
 
 // To initialize the contract 
 near call test_tm_ticket_mints_contract.testnet init '{"allowed_callers":["test_tm_collections_contract.testnet","test_tm_users_contract.testnet"]}' --accountId test_tm_ticket_mints_contract.testnet
+
+// To view the minted tickets or ticket sales by the collection owner
+near view test_tm_ticket_mints_contract.testnet get_ticket_mints_by '{"owner":"ketyung.testnet"}'

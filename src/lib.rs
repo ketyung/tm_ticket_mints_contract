@@ -23,6 +23,8 @@ pub enum StorageKey {
 pub struct Contract {
     
     ticket_mints: UnorderedMap<TicketMintId,TicketMint>,  
+
+    allowed_callers : Option<Vec<AccountId>>,
 }
 
 
@@ -30,7 +32,8 @@ pub struct Contract {
 impl Default for Contract{
 
     fn default() -> Self{
-        Self{ ticket_mints :  UnorderedMap::new(StorageKey::SalesStorageKey)}
+        Self{ ticket_mints :  UnorderedMap::new(StorageKey::SalesStorageKey)
+        , allowed_callers: None}
     }
 }
 
@@ -38,12 +41,46 @@ impl Default for Contract{
 impl Contract {
 
     #[init]
-    pub fn init() -> Self {
+    #[private]
+    #[allow(dead_code)]
+    pub (crate) fn test_init() -> Self {
         assert!(!env::state_exists(), "Already initialized");
         
-        Self{ ticket_mints :  UnorderedMap::new(StorageKey::SalesStorageKey)}
+        Self{ ticket_mints :  UnorderedMap::new(StorageKey::SalesStorageKey),
+        allowed_callers : Some(vec!["bob".parse().unwrap(), "alice".parse().unwrap()])}
     }
 
+}
+
+
+#[near_bindgen]
+impl Contract {
+
+    #[init]
+    #[private]
+    pub fn init(allowed_callers : Vec<AccountId>) -> Self {
+        assert!(!env::state_exists(), "Already initialized");
+        
+        Self{ ticket_mints :  UnorderedMap::new(StorageKey::SalesStorageKey),
+        allowed_callers : Some(allowed_callers)}
+    }
+
+}
+
+
+#[near_bindgen]
+impl Contract {
+
+    fn panic_if_its_not_allowed_caller(&self) {
+
+        let uw_allowed_callers = self.allowed_callers.clone().unwrap();
+
+        if !uw_allowed_callers.contains(&env::predecessor_account_id()) {
+            env::panic_str(format!("@{} Error : Caller {} is NOT allowed",
+            env::current_account_id(),
+            env::predecessor_account_id()).as_str());
+        }
+    }
 }
 
 

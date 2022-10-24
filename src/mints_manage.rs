@@ -7,6 +7,8 @@ impl Contract {
     pub fn insert_ticket_mint(&mut self, collection_id : CollectionId, 
         token_id : TokenId, mint_by : AccountId, price : Option<u128>) -> bool{
 
+        self.panic_if_its_not_allowed_caller();
+
         let id = TicketMintId {
             collection_id : collection_id.clone(),
             token_id : token_id.clone(),
@@ -50,6 +52,9 @@ impl Contract {
 
     pub fn set_ticket_mint_is_used(&mut self, collection_id : CollectionId, 
         token_id : TokenId, used_by : AccountId) -> bool{
+
+        
+        self.panic_if_its_not_allowed_caller();
 
         let id = TicketMintId {
             collection_id : collection_id,

@@ -20,7 +20,7 @@ mod tests {
         let mut context = get_context(accounts(1));
         testing_env!(context.build());
 
-        let mut _contract = Contract::init();
+        let mut _contract = Contract::test_init();
         let acc_id0 = accounts(0);
 
         _contract.insert_ticket_mint(CollectionId {

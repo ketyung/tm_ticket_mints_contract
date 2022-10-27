@@ -16,4 +16,19 @@ impl Contract {
         
         return u; 
     }
+
+
+    pub fn get_ticket_mints_of(&self,collection_id : CollectionId, 
+    offset : Option<usize>, limit : Option<usize>) -> Vec<TicketMint>
+    {
+
+        let u = self.ticket_mints.values_as_vector()
+        .iter()
+        .filter(|s| s.collection_id == collection_id )
+        .skip(offset.unwrap_or(0))
+        .take(limit.unwrap_or(10))
+        .collect::<Vec<TicketMint>>();
+        
+        return u; 
+    }
 }

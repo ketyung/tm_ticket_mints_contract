@@ -77,7 +77,7 @@ impl Contract {
 
         uw_ticket_mint.update_attribute(TicketAttribute {
             name : TicketAttributeType::UsedBy,
-            value : Some(used_by.as_str().to_string()),
+            value : Some(used_by.to_string()),
         }, true );
 
         uw_ticket_mint.update_attribute(TicketAttribute {

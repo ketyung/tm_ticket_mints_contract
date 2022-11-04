@@ -12,6 +12,7 @@ crate-type = ["cdylib"]
 near-sdk = "4.0.0"
 uint = { version = "0.9.3", default-features = false }
 near-contract-standards = "4.0.0"
+itertools = "0.8.0"
 
 [profile.release]
 codegen-units = 1

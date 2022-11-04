@@ -1,5 +1,5 @@
 use crate::*;
-
+use itertools::Itertools;
 
 #[near_bindgen]
 impl Contract {
@@ -9,6 +9,7 @@ impl Contract {
     {
         let u = self.ticket_mints.values_as_vector()
         .iter()
+        .sorted_by(|a, b| Ord::cmp(&b.date, &a.date))
         .filter(|s| s.collection_id.owner == owner )
         .skip(offset.unwrap_or(0))
         .take(limit.unwrap_or(10))
@@ -24,10 +25,12 @@ impl Contract {
 
         let u = self.ticket_mints.values_as_vector()
         .iter()
+        .sorted_by(|a, b| Ord::cmp(&b.date, &a.date))
         .filter(|s| s.collection_id == collection_id )
         .skip(offset.unwrap_or(0))
         .take(limit.unwrap_or(10))
         .collect::<Vec<TicketMint>>();
+
         
         return u; 
     }

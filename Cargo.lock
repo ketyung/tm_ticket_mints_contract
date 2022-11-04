@@ -1250,12 +1250,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "tm-collections-models"
+version = "0.1.0"
+dependencies = [
+ "near-contract-standards",
+ "near-sdk",
+ "uint",
+]
+
+[[package]]
 name = "tm_ticket_mints_contract"
 version = "0.1.0"
 dependencies = [
  "itertools",
  "near-contract-standards",
  "near-sdk",
+ "tm-collections-models",
  "uint",
 ]
 

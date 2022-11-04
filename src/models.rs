@@ -55,17 +55,6 @@ pub struct TicketMintId {
 
 }
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, PartialEq, Clone)]
-#[serde(crate = "near_sdk::serde")]
-pub struct CollectionId {
-
-    pub title : String, 
-
-    pub symbol : String, 
-    
-    pub owner : AccountId, 
-}
-
 #[derive(BorshDeserialize, BorshSerialize,Debug, PartialEq,Serialize, Deserialize,Clone)]
 #[serde(crate = "near_sdk::serde")]
 pub enum TicketAttributeType {

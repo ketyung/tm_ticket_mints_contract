@@ -8,7 +8,8 @@ use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::serde::{Serialize, Deserialize};
 use near_contract_standards::non_fungible_token::TokenId;
 use near_sdk::collections::UnorderedMap;
-use models::{TicketMint, TicketMintId, CollectionId,TicketAttribute, TicketAttributeType};
+use models::*;
+use tm_collections_models::models::CollectionId;
 
 
 #[derive(BorshSerialize, BorshStorageKey)]

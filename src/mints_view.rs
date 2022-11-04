@@ -9,8 +9,8 @@ impl Contract {
     {
         let u = self.ticket_mints.values_as_vector()
         .iter()
-        .sorted_by(|a, b| Ord::cmp(&b.date, &a.date))
         .filter(|s| s.collection_id.owner == owner )
+        .sorted_by(|a, b| Ord::cmp(&b.date, &a.date))
         .skip(offset.unwrap_or(0))
         .take(limit.unwrap_or(10))
         .collect::<Vec<TicketMint>>();
@@ -25,8 +25,8 @@ impl Contract {
 
         let u = self.ticket_mints.values_as_vector()
         .iter()
-        .sorted_by(|a, b| Ord::cmp(&b.date, &a.date))
         .filter(|s| s.collection_id == collection_id )
+        .sorted_by(|a, b| Ord::cmp(&b.date, &a.date))
         .skip(offset.unwrap_or(0))
         .take(limit.unwrap_or(10))
         .collect::<Vec<TicketMint>>();

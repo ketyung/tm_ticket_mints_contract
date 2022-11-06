@@ -27,21 +27,21 @@ mod tests {
             owner : acc_id0.clone(),
             title : "TC 01 Collection".to_string(),
             symbol : "TC1".to_string(),
-        }, "088811".to_string(), accounts(1), None);
+        }, "088811".to_string(), accounts(1), None, None);
 
 
         _contract.insert_ticket_mint(CollectionId {
             owner : acc_id0.clone(),
             title : "TC 01 Collection".to_string(),
             symbol : "TC1".to_string(),
-        }, "088812".to_string(), accounts(1), None);
+        }, "088812".to_string(), accounts(1), None, None);
 
 
         _contract.insert_ticket_mint(CollectionId {
             owner : acc_id0.clone(),
             title : "TC 01 Collection".to_string(),
             symbol : "TC1".to_string(),
-        }, "088811".to_string(), accounts(1), None );
+        }, "088811".to_string(), accounts(1), None, None );
 
 
         _contract.set_ticket_mint_is_used(CollectionId {

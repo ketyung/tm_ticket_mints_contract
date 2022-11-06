@@ -65,6 +65,8 @@ pub enum TicketAttributeType {
 
     Price,
 
+    TicketType,
+
     UsedBy, 
 }
 

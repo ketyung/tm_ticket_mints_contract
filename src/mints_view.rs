@@ -34,4 +34,19 @@ impl Contract {
         
         return u; 
     }
+
+
+    pub fn get_ticket_mints_count(&self, owner : AccountId,
+    date_start :  Option<u64>, date_end :  Option<u64>) -> usize
+    {
+    
+        self.ticket_mints.values_as_vector()
+        .iter()
+        .filter(|s| s.collection_id.owner == owner && 
+        s.date >= date_start && s.date <= date_end )
+        .count()
+        
+    }
+    
+
 }

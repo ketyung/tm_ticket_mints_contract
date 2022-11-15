@@ -50,7 +50,8 @@ impl Contract {
     
     pub fn get_tickets_buyers(&self, owner : AccountId) -> Vec<AccountId>
     {
-        let _tkms  = self.ticket_mints.values_as_vector()
+        let grouped_data  = 
+        self.ticket_mints.values_as_vector()
         .iter()
         .filter(|s| s.collection_id.owner == owner )
         .group_by(|x| x.clone().mint_by);
@@ -58,7 +59,7 @@ impl Contract {
 
         let mut accs : Vec<AccountId>= Vec::new();
 
-        for (acc, _g) in _tkms.into_iter() {
+        for (acc, _g) in grouped_data.into_iter() {
 
             if acc.is_some(){
                 accs.push(acc.unwrap());

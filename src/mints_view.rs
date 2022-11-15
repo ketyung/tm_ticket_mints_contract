@@ -56,8 +56,14 @@ impl Contract {
         .group_by(|x| x.clone().mint_by);
 
 
-        let accs : Vec<AccountId>= Vec::new();
+        let mut accs : Vec<AccountId>= Vec::new();
 
+        for (acc, _group) in _tkms.into_iter() {
+
+            if acc.is_some(){
+                accs.push(acc.unwrap());
+            }
+        }
         
         return accs;
         

@@ -36,6 +36,28 @@ impl Contract {
     }
 
 
+    pub fn get_ticket_mints_count_for(&self, owner : AccountId,
+    date_ranges : Vec<DateRange>) -> Vec<SalesCount> {
+
+        let mut cnts : Vec<SalesCount> = Vec::new();
+
+        for dr in date_ranges.iter() {
+
+            let cnt = self.get_ticket_mints_count(owner.clone(), 
+            dr.start_date_timestamp, dr.end_date_timestamp);
+            let sc = SalesCount {
+                date : dr.date.clone(),
+                count : cnt, 
+            };
+
+            cnts.push(sc);
+        }
+
+        cnts
+    
+    }
+
+
     pub fn get_ticket_mints_count(&self, owner : AccountId,
     date_start :  Option<u64>, date_end :  Option<u64>) -> usize
     {

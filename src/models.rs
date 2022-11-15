@@ -86,3 +86,24 @@ impl PartialEq for TicketAttribute {
     }
 }
 
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+#[serde(crate = "near_sdk::serde")]
+pub struct DateRange {
+
+    pub date : Option<String>,
+
+    pub start_date_timestamp : Option<u64>,
+
+    pub end_date_timestamp : Option<u64>, 
+
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+#[serde(crate = "near_sdk::serde")]
+pub struct SalesCount {
+
+    pub date : Option<String>,
+
+    pub count : usize, 
+}

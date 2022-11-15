@@ -48,24 +48,28 @@ impl Contract {
         
     }
     
-    pub fn get_tickets_buyers(&self, owner : AccountId) -> Vec<AccountId>
+    pub fn get_tickets_buyers(&self, owner : AccountId,
+        offset : Option<usize>, limit : Option<usize>) -> Vec<AccountId>
     {
         let grouped_data  = 
         self.ticket_mints.values_as_vector()
         .iter()
         .filter(|s| s.collection_id.owner == owner )
-        .group_by(|x| x.clone().mint_by);
+        .sorted_by(|a, b| Ord::cmp(&b.date, &a.date))
+        .unique_by(|x| x.clone().mint_by)
+        .skip(offset.unwrap_or(0))
+        .take(limit.unwrap_or(10))
+        .collect::<Vec<TicketMint>>();
 
 
         let mut accs : Vec<AccountId>= Vec::new();
 
-        for (acc, _g) in grouped_data.into_iter() {
+        for a in grouped_data.into_iter() {
 
-            if acc.is_some(){
-                if !accs.contains(&acc.clone().unwrap()){
-                    accs.push(acc.unwrap());
-                }
+            if !accs.contains(&a.mint_by.clone().unwrap()){
+                accs.push(a.mint_by.unwrap());
             }
+        
         }
         
         return accs;

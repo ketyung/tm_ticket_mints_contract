@@ -58,7 +58,7 @@ impl Contract {
 
         let mut accs : Vec<AccountId>= Vec::new();
 
-        for (acc, _group) in _tkms.into_iter() {
+        for (acc, _g) in _tkms.into_iter() {
 
             if acc.is_some(){
                 accs.push(acc.unwrap());

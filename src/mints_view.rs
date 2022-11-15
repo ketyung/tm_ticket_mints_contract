@@ -62,7 +62,9 @@ impl Contract {
         for (acc, _g) in grouped_data.into_iter() {
 
             if acc.is_some(){
-                accs.push(acc.unwrap());
+                if !accs.contains(&acc.clone().unwrap()){
+                    accs.push(acc.unwrap());
+                }
             }
         }
         

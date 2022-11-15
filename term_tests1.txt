@@ -6,3 +6,6 @@ near call test_tm_ticket_mints_contract.testnet init '{"allowed_callers":["test_
 
 // To view the minted tickets or ticket sales by the collection owner
 near view test_tm_ticket_mints_contract.testnet get_ticket_mints_by '{"owner":"ketyung.testnet"}'
+
+// To view all the customers of the account id
+near view test_tm_ticket_mints_contract.testnet get_tickets_buyers '{"owner":"ketyung.testnet"}'

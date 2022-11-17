@@ -131,9 +131,9 @@ impl PartialEq for Buyer{
 #[serde(crate = "near_sdk::serde")]
 pub struct BuyerResult {
 
-    pub buyers : Vec<Buyer>,
+    pub buyers : Option<Vec<Buyer>>,
 
-    pub total : usize, 
+    pub total : Option<usize>, 
 
     pub offset : Option<usize>,
 

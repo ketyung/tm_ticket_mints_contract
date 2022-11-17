@@ -104,8 +104,8 @@ impl Contract {
         }
         
         BuyerResult {
-            buyers : buyers,
-            total : total,
+            buyers : Some(buyers),
+            total : Some(total),
             offset : offset,
             limit : limit,
         }

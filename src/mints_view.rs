@@ -71,30 +71,44 @@ impl Contract {
     }
     
     pub fn get_tickets_buyers(&self, owner : AccountId,
-        offset : Option<usize>, limit : Option<usize>) -> Vec<AccountId>
+        offset : Option<usize>, limit : Option<usize>) -> BuyerResult
     {
-        let grouped_data  = 
+        let res = 
         self.ticket_mints.values_as_vector()
         .iter()
         .filter(|s| s.collection_id.owner == owner )
         .sorted_by(|a, b| Ord::cmp(&b.date, &a.date))
-        .unique_by(|x| x.clone().mint_by)
+        .unique_by(|x| x.clone().mint_by);
+
+        let total = res.clone().count();
+
+        let limit_res = res
         .skip(offset.unwrap_or(0))
         .take(limit.unwrap_or(10))
         .collect::<Vec<TicketMint>>();
 
 
-        let mut accs : Vec<AccountId>= Vec::new();
+        let mut buyers : Vec<Buyer>= Vec::new();
 
-        for a in grouped_data.into_iter() {
+        for b in limit_res.into_iter() {
 
-            if !accs.contains(&a.mint_by.clone().unwrap()){
-                accs.push(a.mint_by.unwrap());
+            let buyer = Buyer {
+                account_id : b.mint_by,
+                last_puchase_date : b.date,
+            };
+
+            if !buyers.contains(&buyer.clone()){
+                buyers.push(buyer);
             }
         
         }
         
-        return accs;
+        BuyerResult {
+            buyers : buyers,
+            total : total,
+            offset : offset,
+            limit : limit,
+        }
         
     }
 

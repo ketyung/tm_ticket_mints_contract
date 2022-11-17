@@ -107,3 +107,35 @@ pub struct SalesCount {
 
     pub count : usize, 
 }
+
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+#[serde(crate = "near_sdk::serde")]
+pub struct Buyer {
+
+    pub account_id : Option<AccountId>,
+
+    pub last_puchase_date : Option<u64>, 
+
+}
+
+
+impl PartialEq for Buyer{
+
+    fn eq(&self, other: &Self) -> bool {
+        self.account_id == other.account_id  
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+#[serde(crate = "near_sdk::serde")]
+pub struct BuyerResult {
+
+    pub buyers : Vec<Buyer>,
+
+    pub total : usize, 
+
+    pub offset : Option<usize>,
+
+    pub limit : Option<usize>,
+}
